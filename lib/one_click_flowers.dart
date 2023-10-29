@@ -20,7 +20,7 @@ class OneClickFlowers extends StatelessWidget {
   final navScreens = [
     const HomeScreen(),
     const FavoriteScreen(),
-    const CartScreen(),
+    CartScreen(),
     const CategoryScreen()
   ];
 

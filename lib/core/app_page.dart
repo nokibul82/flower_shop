@@ -11,7 +11,7 @@ class AppPage{
     GetPage(name: oneClickFlowers, page: () => OneClickFlowers(),transition: Transition.cupertino),
     GetPage(name: home, page: () => const HomeScreen()),
     GetPage(name: favourites, page: () => const FavoriteScreen()),
-    GetPage(name: cart, page: () => const CartScreen()),
+    GetPage(name: cart, page: () => CartScreen()),
     GetPage(name: category, page: () => const CategoryScreen()),
     GetPage(name: splashScreen, page: () => const SplashScreen()),
   ];

@@ -16,6 +16,7 @@ class RegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final numberController = TextEditingController();
   final emailController = TextEditingController();
+  final repeatPasswordController = TextEditingController();
 
   // sign user in method
   void signUserIn() {
@@ -80,7 +81,16 @@ class RegisterScreen extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
+
+              // password textfield
+              MyTextFieldWidget(
+                controller: repeatPasswordController,
+                hintText: 'Repeat Password',
+                obscureText: true,
+              ),
+
+              const SizedBox(height: 20),
 
               MyButtonWidget(
                 onTap: signUserIn,
@@ -107,49 +117,47 @@ class RegisterScreen extends StatelessWidget {
 
 
               // or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 5),
-              // google + apple sign in buttons
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // google button
-                  SquareTileWidget(
-                      imagePath: 'assets/image/logo/logo_google.png'),
-
-                  SizedBox(width: 5),
-
-                  // apple button
-                  SquareTileWidget(imagePath: 'assets/image/logo/logo_apple.png')
-                ],
-              ),
-
-              const SizedBox(height: 10,)
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //         child: Text(
+              //           'Or continue with',
+              //           style: TextStyle(color: Colors.grey[700]),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 5),
+              // // google + apple sign in buttons
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     // google button
+              //     SquareTileWidget(
+              //         imagePath: 'assets/image/logo/logo_google.png'),
+              //
+              //     SizedBox(width: 5),
+              //
+              //     // apple button
+              //     SquareTileWidget(imagePath: 'assets/image/logo/logo_apple.png')
+              //   ],
+              // ),
             ],
           ),
         ),

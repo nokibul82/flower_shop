@@ -29,19 +29,19 @@ class _ProductFilterScreenState extends State<ProductFilterScreen> {
               height: Get.height * 0.4,
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: productController.categories.length,
+                itemCount: controller.categories.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return CheckboxListTile(
                       dense: true,
-                      title: Text(productController
+                      title: Text(controller
                             .categories[index].type.name),
-                      value: productController.categories[index].isSelected,
+                      value: controller.categories[index].isSelected,
                       onChanged: (bool? value) {
                         setState(() {
-                          productController.categories[index].isSelected =
+                          controller.categories[index].isSelected =
                               value!;
                         });
                       });
@@ -52,7 +52,7 @@ class _ProductFilterScreenState extends State<ProductFilterScreen> {
               height: Get.height * 0.4,
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: productController.categories.length,
+                itemCount: controller.categories.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
@@ -61,12 +61,12 @@ class _ProductFilterScreenState extends State<ProductFilterScreen> {
                     controlAffinity: ListTileControlAffinity.trailing,
                     activeColor: AppColor.primary,
                     dense: true,
-                    title: Text(productController
+                    title: Text(controller
                         .categories[index].type.name),
-                    value: productController.categories[index].isSelected,
+                    value: controller.categories[index].isSelected,
                     onChanged: (bool? value) {
                       setState(() {
-                        productController.categories[index].isSelected = value!;
+                        controller.categories[index].isSelected = value!;
                       });
                     },
                   );

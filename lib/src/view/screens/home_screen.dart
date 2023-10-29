@@ -11,7 +11,7 @@ import '../../controller/product_controller.dart';
 import '../widgets/list_item_selector.dart';
 import '../widgets/product_listview_widget.dart';
 
-final ProductController productController = Get.put(ProductController());
+final ProductController controller = Get.put(ProductController());
 final BottomNavbarController navbarController =  Get.put(BottomNavbarController());
 
 class HomeScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               "SEE ALL",
               style: Theme.of(context)
                   .textTheme
-                  .titleLarge
+                  .headlineMedium
                   ?.copyWith(color: AppColor.primary.withOpacity(0.7)),
             ),
           )
@@ -48,9 +48,9 @@ class HomeScreen extends StatelessWidget {
 
   Widget _topCategoriesListView() {
     return ListItemSelector(
-      categories: productController.categories,
+      categories: controller.categories,
       onItemPressed: (index) {
-        productController.filterItemsByCategory(index);
+        controller.filterItemsByCategory(index);
       },
     );
   }
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    productController.getAllItems();
+    controller.getAllItems();
     return Scaffold(
       drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,

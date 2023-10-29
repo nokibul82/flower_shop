@@ -32,7 +32,7 @@ class CategoryScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  productController.filterItemsByCategory(index);
+                  controller.filterItemsByCategory(index);
                   Get.to(() => ProductsScreen(
                       title: AppData.categories[index].type.name));
                 },

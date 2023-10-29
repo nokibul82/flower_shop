@@ -71,7 +71,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(20)),
-                  onPressed: productController.isEmptyCart
+                  onPressed: controller.isEmptyCart
                       ? null
                       : () {
                           Get.back();

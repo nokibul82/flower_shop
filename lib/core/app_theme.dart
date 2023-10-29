@@ -20,18 +20,18 @@ class AppTheme {
     iconTheme: const IconThemeData(color: AppColor.primary),
     textTheme: const TextTheme(
         displayLarge: TextStyle(
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
         displayMedium: TextStyle(
-          fontSize: 19,
+          fontSize: 20,
           fontWeight: FontWeight.w500,
           color: Colors.black,
         ),
         displaySmall: TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           color: Colors.black,
         ),
         headlineMedium: TextStyle(
@@ -40,7 +40,7 @@ class AppTheme {
           color: Colors.black,
         ),
         headlineSmall: TextStyle(fontSize: 15, color: Colors.grey),
-        titleLarge: TextStyle(fontSize: 12)),
+        titleLarge: TextStyle(fontSize: 24)),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,

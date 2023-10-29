@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_click_flowers/core/app_color.dart';
 import 'package:one_click_flowers/core/app_page.dart';
+import 'package:one_click_flowers/src/controller/splash_controller.dart';
 import 'package:one_click_flowers/src/view/screens/register_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/square_tile_widget.dart';
 import '../widgets/mybutton_widget.dart';
@@ -16,7 +18,9 @@ class LoginScreen extends StatelessWidget {
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() {
+  void signUserIn() async{
+    var sharedPref = await SharedPreferences.getInstance();
+    sharedPref.setBool(SplashController.KEYLOGIN, true);
     Get.offNamed(AppPage.oneClickFlowers);
   }
 
@@ -65,21 +69,21 @@ class LoginScreen extends StatelessWidget {
               obscureText: true,
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             // forgot password?
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: AppColor.secondary),
-                  ),
-                ],
-              ),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 25.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: [
+            //       Text(
+            //         'Forgot Password?',
+            //         style: TextStyle(color: AppColor.secondary),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
 
             // sign in button
@@ -105,48 +109,48 @@ class LoginScreen extends StatelessWidget {
             ),
 
             // or continue with
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      'Or continue with',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 5),
-            // google + apple sign in buttons
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // google button
-                SquareTileWidget(imagePath: 'assets/image/logo/logo_google.png'),
-
-                SizedBox(width: 5),
-
-                // apple button
-                SquareTileWidget(imagePath: 'assets/image/logo/logo_apple.png')
-              ],
-            ),
-
-            const SizedBox(height: 5),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         child: Divider(
+            //           thickness: 0.5,
+            //           color: Colors.grey[400],
+            //         ),
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //         child: Text(
+            //           'Or continue with',
+            //           style: TextStyle(color: Colors.grey[700]),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         child: Divider(
+            //           thickness: 0.5,
+            //           color: Colors.grey[400],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(height: 5),
+            // // google + apple sign in buttons
+            // const Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     // google button
+            //     SquareTileWidget(imagePath: 'assets/image/logo/logo_google.png'),
+            //
+            //     SizedBox(width: 5),
+            //
+            //     // apple button
+            //     SquareTileWidget(imagePath: 'assets/image/logo/logo_apple.png')
+            //   ],
+            // ),
+            //
+            // const SizedBox(height: 5),
 
             // not a member? register now
 

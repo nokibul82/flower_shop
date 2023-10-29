@@ -1,6 +1,10 @@
 import './product_size_type.dart';
 
-enum ProductType { All, Roses, Tulips, Orchids, Lilies, Him, Her  }
+enum ProductType { All, Roses, Tulips, Orchids, Lilies, Him, Her}
+
+var dynamic="DYNAMIC";
+
+
 
 class Product {
   String name;

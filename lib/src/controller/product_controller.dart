@@ -38,6 +38,7 @@ class ProductController extends GetxController {
     cartProducts.add(product);
     cartProducts.assignAll(cartProducts);
     calculateTotalPrice();
+    print(totalPrice);
     update();
   }
 
@@ -76,7 +77,10 @@ class ProductController extends GetxController {
         totalPrice.value += element.quantity * element.price;
       }
     }
+    print(totalPrice.value);
+    update();
   }
+
   int calculateSubtotlaPrice(Product product){
     return isPriceOff(product)
         ? product.off!*product.quantity

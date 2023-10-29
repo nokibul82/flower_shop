@@ -20,12 +20,12 @@ class CheckoutOrderSummaryWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.displayLarge,
           ),
           Column(
-            children: productController.cartProducts.map((product) {
+            children: controller.cartProducts.map((product) {
               return ListTile(
                 leading:
                 Text("${product.name}  ${product.quantity}"),
                 trailing: Text(
-                    "\$${productController.calculateSubtotlaPrice(product)}"),
+                    "\$${controller.calculateSubtotlaPrice(product)}"),
               );
             }).toList(),
           ),
@@ -36,7 +36,7 @@ class CheckoutOrderSummaryWidget extends StatelessWidget {
           const Divider(color: AppColor.dark),
           ListTile(
             leading: const Text("Grand Total"),
-            trailing: Text("\$${productController.totalPrice}"),
+            trailing: Text("\$${controller.totalPrice}"),
           ),
         ],
       ),
