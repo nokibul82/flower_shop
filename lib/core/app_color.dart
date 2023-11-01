@@ -12,4 +12,7 @@ class AppColor {
   static const light = Colors.white;
   static const dark = Colors.black;
 
+  static const warning = Colors.redAccent;
+
+
 }

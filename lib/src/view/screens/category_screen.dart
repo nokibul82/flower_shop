@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:one_click_flowers/src/controller/category_controller.dart';
 import 'package:one_click_flowers/src/view/screens/home_screen.dart';
 import '../../../core/app_color.dart';
 import '../../../core/app_data.dart';
@@ -12,6 +13,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryController categoryController = Get.put(CategoryController());
+    categoryController.getAllCategories();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -20,45 +23,105 @@ class CategoryScreen extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: AppColor.secondary),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: GridView.builder(
-            itemCount: AppData.categories.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  controller.filterItemsByCategory(index);
-                  Get.to(() => ProductsScreen(
-                      title: AppData.categories[index].type.name));
-                },
-                child: Stack(
-                  alignment: Alignment.center,
+      body: Obx(() {
+        return categoryController.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 5,
+                  color: AppColor.primary,
+                ),
+              )
+            : SingleChildScrollView(
+                child: Column(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColor.light,
-                        // image: const DecorationImage(
-                        //   fit: BoxFit.cover,
-                        //   image: AssetImage("assets/image/slider/home2-slider1.jpg"),
-                        // ),
-                      ),
+                    Column(
+                      children: [
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: categoryController.categoryList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 2,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 5),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  // controller.filterItemsByCategory(index);
+                                  // Get.to(() => ProductsScreen(
+                                  //     title: AppData.categories[index].type.name));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColor.light,
+                                    // image: const DecorationImage(
+                                    //   fit: BoxFit.cover,
+                                    //   image: NetworkImage(""),
+                                    // ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                        categoryController
+                                            .categoryList[index].catName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ],
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(AppData.categories[index].type.name,
-                          style: Theme.of(context).textTheme.displayLarge),
-                    )
+                    Column(
+                      children: [
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: categoryController.categoryList.length,
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 2,
+                                crossAxisSpacing: 5,
+                                mainAxisSpacing: 5),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  // controller.filterItemsByCategory(index);
+                                  // Get.to(() => ProductsScreen(
+                                  //     title: AppData.categories[index].type.name));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColor.light,
+                                    // image: const DecorationImage(
+                                    //   fit: BoxFit.cover,
+                                    //   image: NetworkImage(""),
+                                    // ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                        categoryController
+                                            .categoryList[index].catName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
                   ],
                 ),
               );
-            }),
-      ),
+      }),
       drawer: const AppDrawer(),
     );
   }

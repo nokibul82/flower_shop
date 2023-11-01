@@ -30,7 +30,7 @@ class SplashController extends GetxController {
 
   void whereToGo() async {
     var sharedPref = await SharedPreferences.getInstance();
-    var isLoggedIn = sharedPref.getBool(KETLOGIN);
+    var isLoggedIn = sharedPref.getBool(SplashController.KEYLOGIN);
 
     Future.delayed(const Duration(seconds: 5), () {
       if (isLoggedIn != null) {

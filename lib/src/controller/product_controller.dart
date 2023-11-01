@@ -1,16 +1,64 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:one_click_flowers/core/app_color.dart';
 import '../../core/app_data.dart';
 import '../model/product.dart';
 import '../model/numerical.dart';
 import '../model/product_category.dart';
+import '../model/product_model.dart';
 import '../model/product_size_type.dart';
 
 class ProductController extends GetxController {
+  @override
+  void onInit() async {
+    await getAllProducts();
+    super.onInit();
+  }
+
   List<Product> allProducts = AppData.products;
   RxList<Product> filteredProducts = AppData.products.obs;
   RxList<Product> cartProducts = <Product>[].obs;
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
+
+  List productList = <ProductModel>[].obs;
+  var isLoading = false.obs;
+
+  Future<void> getAllProducts() async {
+    print("getAllProducts called");
+    try {
+      isLoading.value = true;
+      productList.clear();
+      Uri url = Uri.parse('http://api.norisms.com/products.php');
+      final response = await http.get(url,
+          headers: {
+        "Accept": "application/json",
+      }
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        final responseJson = json.decode(response.body);
+        for (var product in responseJson["body"]) {
+          productList.add(ProductModel.fromJson(product));
+          print("1 added");
+        }
+        print(productList.length);
+      } else {
+        isLoading.value = false;
+        Get.snackbar("Error", json.decode(response.body)["message"],
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: AppColor.warning,
+            colorText: AppColor.light);
+      }
+    } catch (e) {
+      isLoading.value = false;
+      print("=================================");
+      print("$e ====>>> Error from getAllProducts()");
+    }
+  }
 
   void filterItemsByCategory(int index) {
     for (ProductCategory element in categories) {
@@ -42,7 +90,7 @@ class ProductController extends GetxController {
     update();
   }
 
-  void removeFromCart(Product product){
+  void removeFromCart(Product product) {
     product.quantity = 0;
     cartProducts.remove(product);
     cartProducts.assignAll(cartProducts);
@@ -78,13 +126,12 @@ class ProductController extends GetxController {
       }
     }
     print(totalPrice.value);
-    update();
   }
 
-  int calculateSubtotlaPrice(Product product){
+  int calculateSubtotlaPrice(Product product) {
     return isPriceOff(product)
-        ? product.off!*product.quantity
-        : product.price*product.quantity;
+        ? product.off! * product.quantity
+        : product.price * product.quantity;
   }
 
   getFavoriteItems() {

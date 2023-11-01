@@ -16,9 +16,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    sharedPreferences.setBool();
 
     return GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(

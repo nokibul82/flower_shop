@@ -4,8 +4,6 @@ enum ProductType { All, Roses, Tulips, Orchids, Lilies, Him, Her}
 
 var dynamic="DYNAMIC";
 
-
-
 class Product {
   String name;
   int price;
