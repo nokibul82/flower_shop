@@ -19,11 +19,11 @@ class ProductController extends GetxController {
 
   List<Product> allProducts = AppData.products;
   RxList<Product> filteredProducts = AppData.products.obs;
-  RxList<Product> cartProducts = <Product>[].obs;
+  RxList<ProductModel> cartProducts = <ProductModel>[].obs;
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
 
-  List productList = <ProductModel>[].obs;
+  RxList<ProductModel> productList = <ProductModel>[].obs;
   var isLoading = false.obs;
 
   Future<void> getAllProducts() async {
@@ -32,11 +32,9 @@ class ProductController extends GetxController {
       isLoading.value = true;
       productList.clear();
       Uri url = Uri.parse('http://api.norisms.com/products.php');
-      final response = await http.get(url,
-          headers: {
+      final response = await http.get(url, headers: {
         "Accept": "application/json",
-      }
-      );
+      });
       print(response.statusCode);
       if (response.statusCode == 200) {
         isLoading.value = false;
@@ -81,8 +79,8 @@ class ProductController extends GetxController {
     update();
   }
 
-  void addToCart(Product product) {
-    product.quantity = 1;
+  void addToCart(ProductModel product) {
+    product.pQuantity = 1.toString();
     cartProducts.add(product);
     cartProducts.assignAll(cartProducts);
     calculateTotalPrice();
@@ -90,27 +88,27 @@ class ProductController extends GetxController {
     update();
   }
 
-  void removeFromCart(Product product) {
-    product.quantity = 0;
+  void removeFromCart(ProductModel product) {
+    product.pQuantity = 1.toString();
     cartProducts.remove(product);
     cartProducts.assignAll(cartProducts);
     calculateTotalPrice();
     update();
   }
 
-  void increaseItemQuantity(Product product) {
-    product.quantity++;
+  void increaseItemQuantity(ProductModel product) {
+    product.pQuantity = (int.parse(product.pQuantity) + 1).toString();
     calculateTotalPrice();
     update();
   }
 
-  void decreaseItemQuantity(Product product) {
-    product.quantity--;
+  void decreaseItemQuantity(ProductModel product) {
+    product.pQuantity = (int.parse(product.pQuantity) - 1).toString();
     calculateTotalPrice();
     update();
   }
 
-  bool isPriceOff(Product product) => product.off != null;
+  bool isPriceOff(ProductModel product) => product.pPOff.isNotEmpty;
 
   bool get isEmptyCart => cartProducts.isEmpty;
 
@@ -120,18 +118,18 @@ class ProductController extends GetxController {
     totalPrice.value = 0;
     for (var element in cartProducts) {
       if (isPriceOff(element)) {
-        totalPrice.value += element.quantity * element.off!;
+        totalPrice.value += int.parse(element.pQuantity) * int.parse(element.pSPrice);
       } else {
-        totalPrice.value += element.quantity * element.price;
+        totalPrice.value += int.parse(element.pQuantity) * int.parse(element.pPrice);
       }
     }
     print(totalPrice.value);
   }
 
-  int calculateSubtotlaPrice(Product product) {
+  int calculateSubtotalPrice(ProductModel product) {
     return isPriceOff(product)
-        ? product.off! * product.quantity
-        : product.price * product.quantity;
+        ? int.parse(product.pSPrice) * int.parse(product.pQuantity)
+        : int.parse(product.pPrice) * int.parse(product.pQuantity);
   }
 
   getFavoriteItems() {
@@ -142,7 +140,7 @@ class ProductController extends GetxController {
 
   getCartItems() {
     cartProducts.assignAll(
-      allProducts.where((item) => item.quantity > 0),
+      productList.where((item) => int.parse(item.pQuantity) > 0),
     );
   }
 
@@ -150,7 +148,7 @@ class ProductController extends GetxController {
     filteredProducts.assignAll(allProducts);
   }
 
-  List<Numerical> sizeType(Product product) {
+  List<Numerical> sizeType(ProductModel product) {
     ProductSizeType? productSize = product.sizes;
     List<Numerical> numericalList = [];
 
@@ -174,7 +172,7 @@ class ProductController extends GetxController {
     return numericalList;
   }
 
-  void switchBetweenProductSizes(Product product, int index) {
+  void switchBetweenProductSizes(ProductModel product, int index) {
     sizeType(product).forEach((element) {
       element.isSelected = false;
     });

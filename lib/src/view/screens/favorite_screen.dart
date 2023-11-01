@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:one_click_flowers/src/model/product_model.dart';
 import './cart_screen.dart';
 import '../../controller/product_controller.dart';
 import '../widgets/product_grid_view_widget.dart';
@@ -25,7 +26,7 @@ class FavoriteScreen extends GetView<ProductController> {
         child: GetBuilder(
           builder: (ProductController controller) {
             return ProductGridViewWidget(
-              items: controller.filteredProducts,
+              items: controller.productList,
               likeButtonPressed: (index) => controller.isFavorite(index),
               isPriceOff: (product) => controller.isPriceOff(product),
             );

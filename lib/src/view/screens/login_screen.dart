@@ -55,6 +55,7 @@ class LoginScreen extends StatelessWidget {
 
             // username textfield
             MyTextFieldWidget(
+              textInputType: TextInputType.text,
               controller: usernameController,
               hintText: 'Username',
               obscureText: false,
@@ -64,6 +65,7 @@ class LoginScreen extends StatelessWidget {
 
             // password textfield
             MyTextFieldWidget(
+              textInputType: TextInputType.text,
               controller: passwordController,
               hintText: 'Password',
               obscureText: true,

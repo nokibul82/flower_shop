@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:one_click_flowers/src/model/product_size_type.dart';
+
 List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
 
 String productModelToJson(List<ProductModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -65,6 +67,10 @@ class ProductModel {
     added: json["added"],
     modified: json["modified"],
   );
+
+  get isFavorite => true;
+
+  ProductSizeType? get sizes => null;
 
   Map<String, dynamic> toJson() => {
     "p_id": pId,

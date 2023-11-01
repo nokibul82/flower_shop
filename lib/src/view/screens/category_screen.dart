@@ -15,6 +15,9 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     CategoryController categoryController = Get.put(CategoryController());
     categoryController.getAllCategories();
+    categoryController.getAllOccasions();
+    categoryController.getAllAddons();
+    categoryController.getAllColors();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -32,93 +35,189 @@ class CategoryScreen extends StatelessWidget {
                 ),
               )
             : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        GridView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: categoryController.categoryList.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: 2,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  // controller.filterItemsByCategory(index);
-                                  // Get.to(() => ProductsScreen(
-                                  //     title: AppData.categories[index].type.name));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColor.light,
-                                    // image: const DecorationImage(
-                                    //   fit: BoxFit.cover,
-                                    //   image: NetworkImage(""),
-                                    // ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: categoryController.categoryList.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: 2,
+                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 5),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    // controller.filterItemsByCategory(index);
+                                    // Get.to(() => ProductsScreen(
+                                    //     title: AppData.categories[index].type.name));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColor.light,
+                                      // image: const DecorationImage(
+                                      //   fit: BoxFit.cover,
+                                      //   image: NetworkImage(""),
+                                      // ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          categoryController
+                                              .categoryList[index].catName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                        categoryController
-                                            .categoryList[index].catName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall,
-                                        textAlign: TextAlign.center),
+                                );
+                              }),
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
+                      Text("Occasions",style: Theme.of(context).textTheme.displayMedium,),
+                      const SizedBox(height: 5,),
+                      Column(
+                        children: [
+                          GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: categoryController.occasionList.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 2,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 5),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    // controller.filterItemsByCategory(index);
+                                    // Get.to(() => ProductsScreen(
+                                    //     title: AppData.categories[index].type.name));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColor.light,
+                                      // image: const DecorationImage(
+                                      //   fit: BoxFit.cover,
+                                      //   image: NetworkImage(""),
+                                      // ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          categoryController
+                                              .occasionList[index].occasionsName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        GridView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: categoryController.categoryList.length,
-                            gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 2,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  // controller.filterItemsByCategory(index);
-                                  // Get.to(() => ProductsScreen(
-                                  //     title: AppData.categories[index].type.name));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColor.light,
-                                    // image: const DecorationImage(
-                                    //   fit: BoxFit.cover,
-                                    //   image: NetworkImage(""),
-                                    // ),
+                                );
+                              }),
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
+                      Text("Addons",style: Theme.of(context).textTheme.displayMedium,),
+                      const SizedBox(height: 5,),
+                      Column(
+                        children: [
+                          GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: categoryController.addonList.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 2,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 5),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    // controller.filterItemsByCategory(index);
+                                    // Get.to(() => ProductsScreen(
+                                    //     title: AppData.categories[index].type.name));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColor.light,
+                                      // image: const DecorationImage(
+                                      //   fit: BoxFit.cover,
+                                      //   image: NetworkImage(""),
+                                      // ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          categoryController
+                                              .addonList[index].addonsName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                        categoryController
-                                            .categoryList[index].catName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall,
-                                        textAlign: TextAlign.center),
+                                );
+                              }),
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
+                      Text("Colors",style: Theme.of(context).textTheme.displayMedium,),
+                      const SizedBox(height: 5,),
+                      Column(
+                        children: [
+                          GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: categoryController.colorList.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 2,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 5),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    // controller.filterItemsByCategory(index);
+                                    // Get.to(() => ProductsScreen(
+                                    //     title: AppData.categories[index].type.name));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColor.light,
+                                      // image: const DecorationImage(
+                                      //   fit: BoxFit.cover,
+                                      //   image: NetworkImage(""),
+                                      // ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          categoryController
+                                              .colorList[index].colorName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
-                  ],
+                                );
+                              }),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
       }),

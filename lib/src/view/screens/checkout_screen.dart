@@ -5,6 +5,7 @@ import '../../controller/checkout_controller.dart';
 import '../widgets/checkout_datetime_widget.dart';
 import '../widgets/checkout_ordersummary_widget.dart';
 import '../../../core/app_color.dart';
+import 'home_screen.dart';
 
 class CheckoutScreem extends StatelessWidget {
   CheckoutScreem({super.key});
@@ -56,14 +57,18 @@ class CheckoutScreem extends StatelessWidget {
                     ],
                   ),
                 ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // const CheckoutDatetimeWidget(),
                 const SizedBox(
                   height: 10,
                 ),
-                const CheckoutDatetimeWidget(),
+                const CheckoutOrderSummaryWidget(),
                 const SizedBox(
                   height: 10,
                 ),
-                const CheckoutOrderSummaryWidget()
+                bottomBarButton()
               ],
             ),
           ),
@@ -71,4 +76,19 @@ class CheckoutScreem extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget bottomBarButton() {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+      onPressed: controller.isEmptyCart
+          ? null
+          : () {
+        Get.to(CheckoutScreem(),transition: Transition.cupertino);
+      },
+      child: const Text("Checkout"),
+    ),
+  );
 }

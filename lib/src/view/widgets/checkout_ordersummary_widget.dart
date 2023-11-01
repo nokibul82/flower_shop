@@ -23,9 +23,9 @@ class CheckoutOrderSummaryWidget extends StatelessWidget {
             children: controller.cartProducts.map((product) {
               return ListTile(
                 leading:
-                Text("${product.name}  ${product.quantity}"),
+                Text("${product.pName} × ${product.pQuantity}"),
                 trailing: Text(
-                    "\$${controller.calculateSubtotlaPrice(product)}"),
+                    "\$${controller.calculateSubtotalPrice(product)}"),
               );
             }).toList(),
           ),

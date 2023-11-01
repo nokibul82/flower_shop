@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_click_flowers/core/app_color.dart';
+import '../../model/product_model.dart';
 import '../../model/product.dart';
 import '../animation/open_container_wrapper.dart';
 
@@ -11,11 +12,11 @@ class ProductGridViewWidget extends StatelessWidget {
     required this.likeButtonPressed,
   }) : super(key: key);
 
-  final List<Product> items;
-  final bool Function(Product product) isPriceOff;
+  final List<ProductModel> items;
+  final bool Function(ProductModel product) isPriceOff;
   final void Function(int index) likeButtonPressed;
 
-  Widget _gridItemHeader(Product product, int index) {
+  Widget _gridItemHeader(ProductModel product, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
@@ -31,16 +32,16 @@ class ProductGridViewWidget extends StatelessWidget {
               width: 80,
               height: 30,
               alignment: Alignment.center,
-              child: const Text(
-                "30% OFF",
-                style: TextStyle(fontWeight: FontWeight.w600),
+              child: Text(
+                "${product.pPOff}% OFF",
+                style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
           ),
           IconButton(
             icon: Icon(
               Icons.favorite,
-              color: items[index].isFavorite
+              color: items[index].pAvailability == "1"
                   ? AppColor.primary
                   : AppColor.secondary,
             ),
@@ -51,18 +52,23 @@ class ProductGridViewWidget extends StatelessWidget {
     );
   }
 
-  Widget _gridItemBody(Product product) {
+  Widget _gridItemBody(ProductModel product) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: AppColor.light,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Image.asset(product.images[0], scale: 3),
+      child: Image.network(
+        "https://flowersandflowers.com.au/images/products/${product.pImage}",
+        fit: BoxFit.cover,
+        width: 20,
+        height: 20,
+      ),
     );
   }
 
-  Widget _gridItemFooter(Product product, BuildContext context) {
+  Widget _gridItemFooter(ProductModel product, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -81,7 +87,7 @@ class ProductGridViewWidget extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                product.name,
+                product.pName,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: const TextStyle(
@@ -94,16 +100,16 @@ class ProductGridViewWidget extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  product.off != null
-                      ? "\$${product.off}"
-                      : "\$${product.price}",
+                  product.pPOff.isNotEmpty
+                      ? "\$${product.pSPrice}"
+                      : "\$${product.pPrice}",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(width: 3),
                 Visibility(
-                  visible: product.off != null ? true : false,
+                  visible: product.pPOff.isNotEmpty ? true : false,
                   child: Text(
-                    "\$${product.price}",
+                    "\$${product.pPrice}",
                     style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: AppColor.tertiary,
@@ -134,7 +140,7 @@ class ProductGridViewWidget extends StatelessWidget {
           crossAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          Product product = items[index];
+          ProductModel product = items[index];
           return OpenContainerWrapper(
             product: product,
             child: GridTile(

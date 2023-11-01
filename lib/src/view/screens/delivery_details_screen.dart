@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:one_click_flowers/src/view/widgets/mybutton_widget.dart';
 import 'package:one_click_flowers/src/view/widgets/mytextfield_widget.dart';
 
 import '../../../core/app_color.dart';
@@ -10,14 +11,17 @@ import 'home_screen.dart';
 class DeliveryDetailsScreen extends StatelessWidget {
   DeliveryDetailsScreen({super.key});
 
-  final textEditingController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final numberController = TextEditingController();
+  final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Edit Order Details",
+          "Edit Delivery Details",
           style: Theme.of(context).textTheme.displayLarge,
         ),
         iconTheme: const IconThemeData(color: AppColor.secondary),
@@ -25,72 +29,49 @@ class DeliveryDetailsScreen extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Container(
-          height: Get.height * 0.9,
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "  Full Name",
+                "Full Name",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
+              MyTextFieldWidget(
+                  textInputType: TextInputType.text,
+                  controller: nameController,
+                  hintText: "Full Name",
+                  obscureText: false),
               Text(
-                "  Phone Number",
+                "Email",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-               MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
+              MyTextFieldWidget(
+                  textInputType: TextInputType.emailAddress,
+                  controller: emailController,
+                  hintText: "Email",
+                  obscureText: false),
               Text(
-                "  Full Name",
+                "Phone Number",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-               MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
+              MyTextFieldWidget(
+                  controller: numberController,
+                  hintText: "Phone Number",
+                  obscureText: false,
+                  textInputType: TextInputType.number,
+              ),
               Text(
-                "  Full Name",
+                "Details Address",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-               MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
-              Text(
-                "  Full Name",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-               MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
-              Text(
-                "  Full Name",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-               MyTextFieldWidget(controller: textEditingController, hintText: "hintText", obscureText: false),
-              Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20)),
-                  onPressed: controller.isEmptyCart
-                      ? null
-                      : () {
-                          Get.back();
-                        },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Save Details"),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Icon(
-                          Icons.sd_storage_rounded,
-                          size: 14,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              MyTextFieldWidget(
+                  textInputType: TextInputType.multiline,
+                  controller: addressController,
+                  hintText: "Details Address",
+                  obscureText: false),
+              MyButtonWidget(onTap: () {}, title: "Save Details")
             ],
           ),
         ),

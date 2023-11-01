@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/app_color.dart';
 import '../../model/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../model/product_model.dart';
 import '../widgets/page_wrapper.dart';
 import '../widgets/image_slider.dart';
 import '../../controller/product_controller.dart';
@@ -10,7 +11,7 @@ import '../../controller/product_controller.dart';
 final ProductController controller = Get.put(ProductController());
 
 class ProductDetailScreen extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const ProductDetailScreen(this.product, {Key? key}) : super(key: key);
 
@@ -36,7 +37,11 @@ class ProductDetailScreen extends StatelessWidget {
           bottomLeft: Radius.circular(200),
         ),
       ),
-      child: ImageSlider(items: product.images),
+      child: ImageSlider(items: [
+        "https://flowersandflowers.com.au/images/products/${product.pImage}",
+        "https://flowersandflowers.com.au/images/products/${product.pImage}",
+        "https://flowersandflowers.com.au/images/products/${product.pImage}"
+      ]),
     );
   }
 
@@ -46,9 +51,10 @@ class ProductDetailScreen extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         RatingBar.builder(
-          initialRating: product.rating,
+          itemSize: 30,
+          initialRating: 1,
           direction: Axis.horizontal,
-          itemBuilder: (_, __) => const Icon(Icons.star, color: Colors.amber),
+          itemBuilder: (_, __) => const Icon(Icons.star, color: Colors.amber,),
           onRatingUpdate: (_) {},
         ),
         Text(
@@ -72,7 +78,7 @@ class ProductDetailScreen extends StatelessWidget {
           child: AnimatedContainer(
             margin: const EdgeInsets.only(right: 5, left: 5),
             alignment: Alignment.center,
-            width: controller.isNominal(product) ? 40 : 70,
+            width: controller.isNominal(product as Product) ? 40 : 70,
             decoration: BoxDecoration(
               color: controller.sizeType(product)[index].isSelected == false
                   ? AppColor.light
@@ -117,7 +123,7 @@ class ProductDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.name,
+                        product.pName,
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       const SizedBox(height: 10),
@@ -126,16 +132,16 @@ class ProductDetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            product.off != null
-                                ? "\$${product.off}"
-                                : "\$${product.price}",
+                            product.pPOff.isNotEmpty
+                                ? "\$${product.pSPrice}"
+                                : "\$${product.pPrice}",
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(width: 3),
                           Visibility(
-                            visible: product.off != null ? true : false,
+                            visible: product.pPOff.isNotEmpty ? true : false,
                             child: Text(
-                              "\$${product.price}",
+                              "\$${product.pPrice}",
                               style: const TextStyle(
                                 decoration: TextDecoration.lineThrough,
                                 color: Colors.grey,
@@ -145,7 +151,7 @@ class ProductDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            product.isAvailable
+                            product.pAvailability == "1"
                                 ? "Available in stock"
                                 : "Not available",
                             style: const TextStyle(fontWeight: FontWeight.w500),
@@ -158,18 +164,20 @@ class ProductDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 10),
-                      Text(product.about),
+                      Text(product.pShortDescription),
                       const SizedBox(height: 20),
-                      controller.sizeType(product).isNotEmpty ? SizedBox(
-                        height: 40,
-                        child: GetBuilder<ProductController>(
-                          builder: (_) => productSizesListView(),
-                        ),
-                      ):Container(),
+                      controller.sizeType(product).isNotEmpty
+                          ? SizedBox(
+                              height: 40,
+                              child: GetBuilder<ProductController>(
+                                builder: (_) => productSizesListView(),
+                              ),
+                            )
+                          : Container(),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: product.isAvailable
+                          onPressed: product.pAvailability == "1"
                               ? () => controller.addToCart(product)
                               : null,
                           child: const Text("Add to cart"),

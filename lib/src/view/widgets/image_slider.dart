@@ -33,7 +33,7 @@ class _ImageSliderState extends State<ImageSlider> {
             itemBuilder: (_, index) {
               return FittedBox(
                 fit: BoxFit.fitHeight,
-                child: Image.asset(widget.items[index], scale: 5),
+                child: Image.network(widget.items[index], scale: 5),
               );
             },
           ),

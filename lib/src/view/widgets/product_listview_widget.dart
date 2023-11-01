@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:one_click_flowers/src/view/animation/open_container_wrapper.dart';
 import '../../../core/app_color.dart';
 import '../../model/product.dart';
+import '../../model/product_model.dart';
 
 class ProductListViewWidget extends StatelessWidget {
   const ProductListViewWidget(
@@ -11,8 +12,8 @@ class ProductListViewWidget extends StatelessWidget {
       required this.isPriceOff,
       required this.likeButtonPressed});
 
-  final List<Product> items;
-  final bool Function(Product product) isPriceOff;
+  final List<ProductModel> items;
+  final bool Function(ProductModel product) isPriceOff;
   final void Function(int index) likeButtonPressed;
 
   @override
@@ -24,7 +25,7 @@ class ProductListViewWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: items.length,
           itemBuilder: (context, index) {
-            Product product = items[index];
+            ProductModel product = items[index];
             return Container(
               margin: const EdgeInsets.only(right: 8),
               child: OpenContainerWrapper(
@@ -56,10 +57,10 @@ class ProductListViewWidget extends StatelessWidget {
                                     width: 70,
                                     height: 25,
                                     alignment: Alignment.center,
-                                    child: const Text(
-                                      "30% OFF",
+                                    child: Text(
+                                      "${product.pPOff}% OFF",
                                       style:
-                                          TextStyle(fontWeight: FontWeight.w600),
+                                          const TextStyle(fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                 ),
@@ -75,9 +76,9 @@ class ProductListViewWidget extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Image.asset(
+                            Image.network(
                               // Image Section
-                              product.images[0],
+                              "https://flowersandflowers.com.au/images/products/${product.pImage}",
                               fit: BoxFit.cover,
                               width: 100,
                               height: 100,
@@ -98,7 +99,7 @@ class ProductListViewWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    product.name,
+                                    product.pName,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: const TextStyle(
@@ -109,19 +110,18 @@ class ProductListViewWidget extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        product.off != null
-                                            ? "\$${product.off}"
-                                            : "\$${product.price}",
+                                        product.pPOff.isNotEmpty
+                                            ? "\$${product.pSPrice}"
+                                            : "\$${product.pPrice}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium,
                                       ),
                                       const SizedBox(width: 3),
                                       Visibility(
-                                        visible:
-                                            product.off != null ? true : false,
+                                        visible: product.pPOff.isNotEmpty ? true : false,
                                         child: Text(
-                                          "\$${product.price}",
+                                          "\$${product.pPrice}",
                                           style: const TextStyle(
                                             decoration:
                                                 TextDecoration.lineThrough,

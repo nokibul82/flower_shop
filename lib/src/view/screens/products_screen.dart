@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_click_flowers/core/app_color.dart';
 import 'package:get/get.dart';
+import 'package:one_click_flowers/src/model/product_model.dart';
 import 'package:one_click_flowers/src/view/screens/home_screen.dart';
 import './product_filter_screen2.dart';
 import '../../controller/product_controller.dart';
@@ -42,9 +43,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder(builder: (ProductController productController) {
           return ProductGridViewWidget(
-            items: productController.filteredProducts,
+            items: productController.productList,
             likeButtonPressed: (index) => productController.isFavorite(index),
-            isPriceOff: (product) => productController.isPriceOff(product),
+            isPriceOff: (product) => productController.isPriceOff(product as ProductModel),
           );
         }),
       ),

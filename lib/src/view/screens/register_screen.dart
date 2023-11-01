@@ -52,12 +52,14 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               MyTextFieldWidget(
+                textInputType: TextInputType.emailAddress,
                 controller: emailController,
                 hintText: 'Email',
                 obscureText: false,
               ),
               const SizedBox(height: 10),
               MyTextFieldWidget(
+                textInputType: TextInputType.text,
                 controller: numberController,
                 hintText: 'Phone Number',
                 obscureText: false,
@@ -67,6 +69,7 @@ class RegisterScreen extends StatelessWidget {
 
               // username textfield
               MyTextFieldWidget(
+                textInputType: TextInputType.text,
                 controller: usernameController,
                 hintText: 'Username',
                 obscureText: false,
@@ -76,6 +79,7 @@ class RegisterScreen extends StatelessWidget {
 
               // password textfield
               MyTextFieldWidget(
+                textInputType: TextInputType.text,
                 controller: passwordController,
                 hintText: 'Password',
                 obscureText: true,
@@ -85,6 +89,7 @@ class RegisterScreen extends StatelessWidget {
 
               // password textfield
               MyTextFieldWidget(
+                textInputType: TextInputType.text,
                 controller: repeatPasswordController,
                 hintText: 'Repeat Password',
                 obscureText: true,
