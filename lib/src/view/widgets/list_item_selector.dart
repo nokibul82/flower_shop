@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:one_click_flowers/src/model/occasion_model.dart';
 import '../../model/product_category.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class ListItemSelector extends StatefulWidget {
     required this.onItemPressed,
   }) : super(key: key);
 
-  final List<ProductCategory> categories;
+  final List<dynamic> categories;
   final Function(int) onItemPressed;
 
   @override
@@ -20,17 +21,12 @@ class ListItemSelector extends StatefulWidget {
 }
 
 class _ListItemSelectorState extends State<ListItemSelector> {
-  Widget item(ProductCategory item, int index) {
+  Widget item(OccasionModel item, int index) {
     return Tooltip(
-      message: item.type.name,
+      message: item.occasionsName,
       child: InkWell(
         onTap: () {
-          widget.onItemPressed(index);
-          for (var element in widget.categories) {
-            element.isSelected = false;
-          }
-          item.isSelected = true;
-          setState(() {});
+
         },
         child: AnimatedContainer(
             margin: const EdgeInsets.only(left: 5),
@@ -44,7 +40,8 @@ class _ListItemSelectorState extends State<ListItemSelector> {
             ),
             child: Center(
               child: Text(
-                item.type.name,
+                textAlign: TextAlign.center,
+                item.occasionsName,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: item.isSelected == false
                           ? Colors.black

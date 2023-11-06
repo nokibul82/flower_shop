@@ -24,6 +24,8 @@ class OccasionModel {
     vendorId: json["vendor_id"],
   );
 
+  get isSelected => false;
+
   Map<String, dynamic> toJson() => {
     "occasions_id": occasionsId,
     "occasions_name": occasionsName,

@@ -87,7 +87,7 @@ class CategoryController extends GetxController {
     try {
       isLoading.value = true;
       addonList.clear();
-      Uri url = Uri.parse('https://api.norisms.com/addons.php');
+      Uri url = Uri.parse('https://api.norisms.com/index.php');
       final response = await http.get(url, headers: {
         "Accept":
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"

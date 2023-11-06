@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:one_click_flowers/src/controller/category_controller.dart';
 import 'package:one_click_flowers/src/view/screens/search_screen.dart';
 import '../../controller/bottom_navbar_controller.dart';
 import '../../../one_click_flowers.dart';
@@ -14,7 +15,7 @@ import '../widgets/product_listview_widget.dart';
 final ProductController controller = Get.put(ProductController());
 final BottomNavbarController navbarController =
     Get.put(BottomNavbarController());
-
+final CategoryController categoryController = Get.put(CategoryController());
 class HomeScreen extends GetView<ProductController> {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -49,7 +50,7 @@ class HomeScreen extends GetView<ProductController> {
 
   Widget _topCategoriesListView() {
     return ListItemSelector(
-      categories: controller.categories,
+      categories: categoryController.occasionList,
       onItemPressed: (index) {
         controller.filterItemsByCategory(index);
       },
@@ -69,6 +70,10 @@ class HomeScreen extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     controller.getAllItems();
+    categoryController.getAllCategories();
+    categoryController.getAllOccasions();
+    categoryController.getAllAddons();
+    categoryController.getAllColors();
     return Scaffold(
       drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,

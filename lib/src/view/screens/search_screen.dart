@@ -46,9 +46,14 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
       body: Center(
-          child: Text(
-        "Search for your desired products",
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 20),
+          child: Column(
+        children: [
+          const Icon(Icons.search_outlined),
+          Text(
+            "Search for your desired products",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
       )),
     );
   }
