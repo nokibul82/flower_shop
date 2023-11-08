@@ -5,16 +5,28 @@ import 'package:http/http.dart' as http;
 import 'package:one_click_flowers/src/model/addon_model.dart';
 import 'package:one_click_flowers/src/model/color_model.dart';
 import 'package:one_click_flowers/src/model/occasion_model.dart';
+import 'package:one_click_flowers/src/model/size_model.dart';
 import '../../core/app_color.dart';
 import '../model/category_model.dart';
 
 class CategoryController extends GetxController {
+  @override
+  void onInit() {
+    getAllCategories();
+    getAllOccasions();
+    getAllAddons();
+    getAllColors();
+    super.onInit();
+  }
 
-  List categoryList = <CategoryModel>[].obs;
-  List occasionList = <OccasionModel>[].obs;
-  List addonList = <AddonModel>[].obs;
-  List colorList = <ColorModel>[].obs;
+  List<CategoryModel> categoryList = <CategoryModel>[].obs;
+  List<OccasionModel> occasionList = <OccasionModel>[].obs;
+  List<AddonModel> addonList = <AddonModel>[].obs;
+  List<ColorModel> colorList = <ColorModel>[].obs;
+  List<SizeModel> sizeList = <SizeModel>[].obs;
   var isLoading = false.obs;
+
+
 
   Future<void> getAllCategories() async {
     print("getAllCategories Called");
@@ -131,6 +143,39 @@ class CategoryController extends GetxController {
         final responseJson = json.decode(response.body);
         for (var color in responseJson["body"]) {
           colorList.add(ColorModel.fromJson(color));
+          print("1 added");
+        }
+        print(colorList.length);
+      } else {
+        isLoading.value = false;
+        Get.snackbar("Error", json.decode(response.body)["message"],
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: AppColor.warning,
+            colorText: AppColor.light);
+      }
+    } catch (e) {
+      isLoading.value = false;
+      print("=================================");
+      print("$e ====>>> Error from getAllOccasions()");
+    }
+  }
+
+  Future<void> getAllSizes() async {
+    print("getAllSizes Called");
+    try {
+      isLoading.value = true;
+      colorList.clear();
+      Uri url = Uri.parse('https://api.norisms.com/sizes.php');
+      final response = await http.get(url, headers: {
+        "Accept":
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        final responseJson = json.decode(response.body);
+        for (var size in responseJson["body"]) {
+          sizeList.add(SizeModel.fromJson(size));
           print("1 added");
         }
         print(colorList.length);

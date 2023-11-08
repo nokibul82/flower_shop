@@ -70,10 +70,6 @@ class HomeScreen extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     controller.getAllItems();
-    categoryController.getAllCategories();
-    categoryController.getAllOccasions();
-    categoryController.getAllAddons();
-    categoryController.getAllColors();
     return Scaffold(
       drawer: const AppDrawer(),
       extendBodyBehindAppBar: true,
@@ -163,13 +159,6 @@ class HomeScreen extends GetView<ProductController> {
                           height: 10,
                         ),
                         _slider(context),
-                        // GetBuilder(builder: (ProductController controller) {
-                        //   return ProductGridViewWidget(
-                        //     items: controller.filteredProducts,
-                        //     likeButtonPressed: (index) => controller.isFavorite(index),
-                        //     isPriceOff: (product) => controller.isPriceOff(product),
-                        //   );
-                        // }),
                       ],
                     ),
                   ),

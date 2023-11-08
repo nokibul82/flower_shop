@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:one_click_flowers/core/app_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/app_data.dart';
 import '../model/product.dart';
 import '../model/numerical.dart';
@@ -14,6 +15,7 @@ class ProductController extends GetxController {
   @override
   void onInit() async {
     await getAllProducts();
+    sharedPref = await SharedPreferences.getInstance();
     super.onInit();
   }
 
@@ -24,6 +26,7 @@ class ProductController extends GetxController {
   RxInt totalPrice = 0.obs;
 
   RxList<ProductModel> productList = <ProductModel>[].obs;
+  late SharedPreferences sharedPref;
   var isLoading = false.obs;
 
   Future<void> getAllProducts() async {
@@ -83,6 +86,10 @@ class ProductController extends GetxController {
     product.pQuantity = 1.toString();
     cartProducts.add(product);
     cartProducts.assignAll(cartProducts);
+    //
+    // sharedPref.setString("cartItems", );
+    // print(sharedPref.getString("cartItems"));
+
     calculateTotalPrice();
     print(totalPrice);
     update();

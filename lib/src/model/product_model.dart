@@ -72,24 +72,24 @@ class ProductModel {
 
   ProductSizeType? get sizes => null;
 
-  Map<String, dynamic> toJson() => {
-    "p_id": pId,
-    "vendor_id": vendorId,
-    "p_code": pCode,
-    "p_name": pName,
-    "p_w_price": pWPrice,
-    "p_price": pPrice,
-    "p_s_price": pSPrice,
-    "p_p_off": pPOff,
-    "p_measurement": pMeasurement,
-    "p_availability": pAvailability,
-    "p_short_description": pShortDescription,
-    "p_description": pDescription,
-    "cat_id": catId,
-    "brand_id": brandId,
-    "p_quantity": pQuantity,
-    "p_image": pImage,
-    "added": added,
-    "modified": modified,
+  Map<String, dynamic> toJson(ProductModel productModel) => {
+    "p_id": productModel.pId,
+    "vendor_id": productModel.vendorId,
+    "p_code": productModel.pCode,
+    "p_name": productModel.pName,
+    "p_w_price": productModel.pWPrice,
+    "p_price": productModel.pPrice,
+    "p_s_price": productModel.pSPrice,
+    "p_p_off": productModel.pPOff,
+    "p_measurement": productModel.pMeasurement,
+    "p_availability": productModel.pAvailability,
+    "p_short_description": productModel.pShortDescription,
+    "p_description": productModel.pDescription,
+    "cat_id": productModel.catId,
+    "brand_id": productModel.brandId,
+    "p_quantity": productModel.pQuantity,
+    "p_image": productModel.pImage,
+    "added": productModel.added,
+    "modified": productModel.modified,
   };
 }

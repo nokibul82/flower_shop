@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:one_click_flowers/src/view/screens/products_screen.dart';
+import '../../controller/search_controller.dart';
+import 'products_screen.dart';
 
 import '../../../core/app_color.dart';
 
@@ -13,9 +15,13 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final SearchProductController searchProductController =
+      Get.put(SearchProductController());
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         title: TextField(
@@ -23,13 +29,19 @@ class _SearchScreenState extends State<SearchScreen> {
           style: Theme.of(context).textTheme.bodyMedium,
           cursorColor: AppColor.primary,
           decoration: InputDecoration(
-            hintText: 'Search...',
+            suffixIcon: IconButton(
+              onPressed: () {
+                _searchController.clear();
+              },
+              icon: const Icon(
+                CupertinoIcons.add,
+                size: 20,
+              ),
+            ),
+            hintText: 'search here',
             hintStyle: Theme.of(context).textTheme.bodyMedium,
             border: InputBorder.none,
           ),
-          onChanged: (value) {
-            // Perform search functionality here
-          },
         ),
         iconTheme: const IconThemeData(color: AppColor.secondary),
         actions: [
@@ -37,7 +49,11 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.all(8),
             constraints: const BoxConstraints(),
             onPressed: () {
-              Get.to(() => ProductsScreen(title: _searchController.text));
+              searchProductController.search(_searchController.text);
+              Get.to(() => ProductsScreen(
+                    title: _searchController.text,
+                    productList: searchProductController.productList,
+                  ));
             },
             icon: const Icon(
               Icons.search,
@@ -46,15 +62,22 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
       body: Center(
-          child: Column(
-        children: [
-          const Icon(Icons.search_outlined),
-          Text(
-            "Search for your desired products",
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.search_outlined,
+              color: AppColor.secondary,
+              size: 80,
+            ),
+            Text(
+              "Search for your desired products",
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

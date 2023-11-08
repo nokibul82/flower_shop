@@ -14,10 +14,6 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CategoryController categoryController = Get.put(CategoryController());
-    categoryController.getAllCategories();
-    categoryController.getAllOccasions();
-    categoryController.getAllAddons();
-    categoryController.getAllColors();
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -52,13 +52,13 @@ class ProductDetailScreen extends StatelessWidget {
       children: [
         RatingBar.builder(
           itemSize: 30,
-          initialRating: 1,
+          initialRating: 5,
           direction: Axis.horizontal,
           itemBuilder: (_, __) => const Icon(Icons.star, color: Colors.amber,),
           onRatingUpdate: (_) {},
         ),
         Text(
-          "(4500 Reviews)",
+          "(355 Reviews)",
           style: Theme.of(context)
               .textTheme
               .displaySmall
